@@ -2,17 +2,20 @@ import 'dotenv/config';
 import * as joi from 'joi';
 
 interface EnvVars {
-  API_GATEWAY_PORT: number;
   RABBITMQ_URLS: string[];
+  RMQ_PAYMENT_CLIENT_NAME: string;
+  RMQ_PAYMENT_CLIENT_QUEUE: string;
   RMQ_NOTIFICATION_CLIENT_NAME: string;
   RMQ_NOTIFICATION_CLIENT_QUEUE: string;
 }
 
 const envsSchema = joi
   .object({
-    API_GATEWAY_PORT: joi.number().required(),
     RABBITMQ_URLS: joi.array().items(joi.string()).required(),
-    RMQ_NOTIFICATION_CLIENT_NAME: joi.string().required(),
+    RMQ_ORDERS_CLIENT_NAME: joi.string().required(),
+    RMQ_ORDERS_CLIENT_QUEUE: joi.string().required(),
+    RMQ_PAYMENT_CLIENT_NAME: joi.string().required(),
+    RMQ_PAYMENT_CLIENT_QUEUE: joi.string().required(),
   })
   .unknown(true);
 
@@ -29,7 +32,8 @@ const envVars = value;
 
 export const envs = {
   rabbitmqUrls: envVars.RABBITMQ_URLS,
-  apiGatewayPort: envVars.API_GATEWAY_PORT,
+  rmqPaymentClientName: envVars.RMQ_PAYMENT_CLIENT_NAME,
+  rmqPaymentClientQueue: envVars.RMQ_PAYMENT_CLIENT_QUEUE,
   rmqNotificationClientName: envVars.RMQ_NOTIFICATION_CLIENT_NAME,
   rmqNotificationClientQueue: envVars.RMQ_NOTIFICATION_CLIENT_QUEUE,
 };

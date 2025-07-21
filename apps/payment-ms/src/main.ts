@@ -1,19 +1,18 @@
 import { NestFactory } from '@nestjs/core';
-import { OrdersMsModule } from './orders-ms.module';
+import { PaymentMsModule } from './payment-ms.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { Logger } from '@nestjs/common';
 import { envs } from './config';
 
 async function bootstrap() {
-  const logger = new Logger('OrdersMsMain');
-
+  const logger = new Logger('PaymentMsMain');
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
-    OrdersMsModule,
+    PaymentMsModule,
     {
       transport: Transport.RMQ,
       options: {
         urls: envs.rabbitmqUrls,
-        queue: envs.rmqNotificationClientQueue,
+        queue: envs.rmqPaymentClientQueue,
         queueOptions: {
           durable: true,
         },
@@ -22,6 +21,7 @@ async function bootstrap() {
   );
 
   await app.listen();
-  logger.log('Orders Microservice is running');
+
+  logger.log('Payment Microservice is running');
 }
 bootstrap();

@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ApiGatewayModule } from './api-gateway.module';
 import { Logger, ValidationPipe } from '@nestjs/common';
+import { envs } from './config';
 
 async function bootstrap() {
   const logger = new Logger('Main-Gateway');
@@ -16,7 +17,7 @@ async function bootstrap() {
     }),
   );
 
-  const appPort = process.env.PORT || 3000;
+  const appPort = envs.apiGatewayPort;
 
   await app.listen(appPort);
 

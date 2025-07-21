@@ -17,6 +17,19 @@ import { envs } from '../config';
         },
       },
     ]),
+    ClientsModule.register([
+      {
+        name: envs.rmqPaymentClientName,
+        transport: Transport.RMQ,
+        options: {
+          urls: envs.rabbitmqUrls,
+          queue: envs.rmqPaymentClientQueue,
+          queueOptions: {
+            durable: true, // Keep the queue after rabbitmq restarts
+          },
+        },
+      },
+    ]),
   ],
   exports: [ClientsModule],
 })
