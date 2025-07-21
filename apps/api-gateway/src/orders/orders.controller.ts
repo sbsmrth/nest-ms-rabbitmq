@@ -6,7 +6,7 @@ import { ClientProxy } from '@nestjs/microservices';
 @Controller('orders')
 export class OrdersController {
   constructor(
-    @Inject(envs.rmqNotificationClientName)
+    @Inject(envs.rmqOrdersClientName)
     private readonly client: ClientProxy,
   ) {}
 

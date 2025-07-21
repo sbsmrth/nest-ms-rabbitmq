@@ -13,7 +13,7 @@ async function bootstrap() {
       transport: Transport.RMQ,
       options: {
         urls: envs.rabbitmqUrls,
-        queue: envs.rmqNotificationClientQueue,
+        queue: envs.rmqOrdersClientQueue,
         queueOptions: {
           durable: true,
         },

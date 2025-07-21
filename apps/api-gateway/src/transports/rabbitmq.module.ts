@@ -6,11 +6,11 @@ import { envs } from '../config';
   imports: [
     ClientsModule.register([
       {
-        name: envs.rmqNotificationClientName,
+        name: envs.rmqOrdersClientName,
         transport: Transport.RMQ,
         options: {
           urls: envs.rabbitmqUrls,
-          queue: envs.rmqNotificationClientQueue,
+          queue: envs.rmqOrdersClientQueue,
           queueOptions: {
             durable: true, // Keep the queue after rabbitmq restarts
           },

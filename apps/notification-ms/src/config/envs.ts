@@ -5,27 +5,19 @@ interface EnvVars {
   RABBITMQ_URLS: string[];
   RMQ_NOTIFICATION_CLIENT_NAME: string;
   RMQ_NOTIFICATION_CLIENT_QUEUE: string;
-  RMQ_PAYMENT_CLIENT_NAME: string;
-  RMQ_PAYMENT_CLIENT_QUEUE: string;
-  RMQ_ORDERS_CLIENT_NAME: string;
-  RMQ_ORDERS_CLIENT_QUEUE: string;
 }
 
 const envsSchema = joi
   .object({
     RABBITMQ_URLS: joi.array().items(joi.string()).required(),
+    RMQ_NOTIFICATION_CLIENT_NAME: joi.string().required(),
+    RMQ_NOTIFICATION_CLIENT_QUEUE: joi.string().required(),
   })
   .unknown(true);
 
 const { error, value } = envsSchema.validate({
   ...process.env,
   RABBITMQ_URLS: process.env.RABBITMQ_URLS?.split(','),
-  RMQ_NOTIFICATION_CLIENT_NAME: process.env.RMQ_NOTIFICATION_CLIENT_NAME,
-  RMQ_NOTIFICATION_CLIENT_QUEUE: process.env.RMQ_NOTIFICATION_CLIENT_QUEUE,
-  RMQ_PAYMENT_CLIENT_NAME: process.env.RMQ_PAYMENT_CLIENT_NAME,
-  RMQ_PAYMENT_CLIENT_QUEUE: process.env.RMQ_PAYMENT_CLIENT_QUEUE,
-  RMQ_ORDERS_CLIENT_NAME: process.env.RMQ_ORDERS_CLIENT_NAME,
-  RMQ_ORDERS_CLIENT_QUEUE: process.env.RMQ_ORDERS_CLIENT_QUEUE,
 }) as { error?: joi.ValidationError; value: EnvVars };
 
 if (error) {
@@ -38,8 +30,4 @@ export const envs = {
   rabbitmqUrls: envVars.RABBITMQ_URLS,
   rmqNotificationClientName: envVars.RMQ_NOTIFICATION_CLIENT_NAME,
   rmqNotificationClientQueue: envVars.RMQ_NOTIFICATION_CLIENT_QUEUE,
-  rmqPaymentClientName: envVars.RMQ_PAYMENT_CLIENT_NAME,
-  rmqPaymentClientQueue: envVars.RMQ_PAYMENT_CLIENT_QUEUE,
-  rmqOrdersClientName: envVars.RMQ_ORDERS_CLIENT_NAME,
-  rmqOrdersClientQueue: envVars.RMQ_ORDERS_CLIENT_QUEUE,
 };

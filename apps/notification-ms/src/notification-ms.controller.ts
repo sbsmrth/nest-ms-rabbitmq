@@ -1,12 +1,19 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { NotificationMsService } from './notification-ms.service';
+import { MessagePattern } from '@nestjs/microservices';
+import { OrderDto } from './dto/order.dto';
 
 @Controller()
 export class NotificationMsController {
   constructor(private readonly notificationMsService: NotificationMsService) {}
 
-  @Get()
-  getHello(): string {
-    return this.notificationMsService.getHello();
+  @MessagePattern('order-created')
+  orderCreated(orderDto: OrderDto) {
+    return this.notificationMsService.orderCreated(orderDto);
+  }
+
+  @MessagePattern('payment-succeeded')
+  paymentSucceeded(orderDto: OrderDto) {
+    return this.notificationMsService.paymentSucceeded(orderDto);
   }
 }

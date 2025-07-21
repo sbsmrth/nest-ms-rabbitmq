@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { PaymentMsController } from './payment-ms.controller';
 import { PaymentMsService } from './payment-ms.service';
+import { RabbitMqModule } from './transports/rabbitmq.module';
 
 @Module({
-  imports: [],
+  imports: [RabbitMqModule],
   controllers: [PaymentMsController],
   providers: [PaymentMsService],
 })
